@@ -3,32 +3,39 @@
 //   npm run dashboard:dev     local dev server
 //   npm run dashboard:build   → dashboard/build/cybergate-dashboard.html (one file, open it by double-click)
 //
-// What ends up in the HTML:
-//   - the workbook data/cybergate-mock-data.xlsx, parsed here at build time into JSON
-//   - all CSS and JS inlined; the JS is one classic <script> (no type="module", no imports at runtime)
-//   - a Content-Security-Policy that blocks every network request, so the page works in airplane mode
+//   npm run dashboard:serve   serve the repo on this computer, so the page reads data/cybergate-mock-data.xlsx by itself
+//
+// What ends up in the HTML: all CSS and JS, inlined. The JS is one classic <script> (no type="module", no
+// imports at runtime). The data is NOT built in: at startup the page reads data/cybergate-mock-data.xlsx
+// from the repo (or the copy the manager picked). A Content-Security-Policy allows reading files from the
+// page's own origin only and blocks everything else, so the page cannot reach the internet.
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import { viteSingleFile } from 'vite-plugin-singlefile'
-import readExcelFile from 'read-excel-file/node'
-import { normalizeWorkbook } from './src/lib/normalize.js'
 
-function xlsxAsJson() {
+const DATA_DIR = fileURLToPath(new URL('./data/', import.meta.url))
+
+// Dev server only: serve the repo's data/ folder at /data/, so the page can read the workbook while editing.
+function serveRepoData() {
   return {
-    name: 'xlsx-as-json',
-    async load(id) {
-      if (!id.endsWith('.xlsx')) return null
-      this.addWatchFile(id)
-      const sheets = normalizeWorkbook(await readExcelFile(id))
-      return `export default JSON.parse(${JSON.stringify(JSON.stringify(sheets))})`
+    name: 'serve-repo-data',
+    configureServer(server) {
+      server.middlewares.use('/data', (req, res, next) => {
+        const name = decodeURIComponent((req.url || '').split('?')[0]).replace(/^\/+/, '')
+        const file = path.join(DATA_DIR, name)
+        if (!name.endsWith('.xlsx') || !file.startsWith(DATA_DIR) || !fs.existsSync(file)) return next()
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        res.setHeader('Cache-Control', 'no-store')
+        fs.createReadStream(file).pipe(res)
+      })
     },
   }
 }
 
 function offlineCsp() {
-  const csp = "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src data:"
+  const csp = "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'self'"
   return {
     name: 'offline-csp',
     apply: 'build',
@@ -62,7 +69,7 @@ function classicScript() {
 export default defineConfig({
   root: 'dashboard',
   base: './',
-  plugins: [xlsxAsJson(), viteSingleFile(), offlineCsp(), classicScript()],
+  plugins: [serveRepoData(), viteSingleFile(), offlineCsp(), classicScript()],
   server: { fs: { allow: ['..'] } },
   build: {
     outDir: 'build',

@@ -1,26 +1,31 @@
 # CyberGate manager dashboard (pilot)
 
-**Open `build/cybergate-dashboard.html` by double-clicking it.** That one file contains the whole app:
-- the HTML, CSS and JavaScript
-- all the data from `data/cybergate-mock-data.xlsx`
+The dashboard is one HTML file, `build/cybergate-dashboard.html`, that contains the whole app: HTML, CSS and JavaScript. **It reads its data from the Excel workbook in this repo, `data/cybergate-mock-data.xlsx`.** No data is built into the page. Reading that workbook is the only thing the page ever loads, and a Content-Security-Policy blocks every request to anywhere else. Everything works in airplane mode.
 
-It works in airplane mode. A Content-Security-Policy in the file blocks every network request, and no fonts, CDNs or APIs are used.
+## Opening it
+
+| How | What happens |
+| --- | --- |
+| `npm run dashboard:serve`, then open the printed address | The page reads `data/cybergate-mock-data.xlsx` from the repo by itself every time it opens. This is a tiny Node server bound to 127.0.0.1 with no dependencies, so it still works offline. |
+| Double-click `build/cybergate-dashboard.html` | Browsers don't let a page opened from disk read other files by itself. The first time, choose or drop `data/cybergate-mock-data.xlsx`. The browser keeps a copy on this computer, so next time the dashboard opens straight away. |
+| Load another version | Click the data button in the header (it shows the file name and number of people) or drop an .xlsx anywhere on the page. |
+
+The workbook is checked when it is read. If a sheet or key column is missing, the page says exactly what is missing instead of showing wrong numbers.
 
 ## How it's built
 
 - Plain JavaScript, with no framework, no chart library and no runtime modules. Charts are hand-drawn SVG and components are plain functions that return HTML.
-- Vite uses the same setup as the table viewer in this repo:
-  - reads the Excel workbook at build time and turns it into JSON
-  - bundles `src/` into **one classic `<script>`** (no `type="module"`, no `import` at runtime)
-  - inlines everything with `vite-plugin-singlefile`
+- **The Excel reader (`src/xlsx.js`) is written from scratch.** It reads the zip, unpacks it with the browser's built-in `DecompressionStream`, and reads the sheet XML with `DOMParser`. It was checked cell by cell against `read-excel-file` on all 8 sheets, and the output is identical.
+- Vite (the same setup as the table viewer in this repo) bundles `src/` into **one classic `<script>`**, with no `type="module"` and no `import` at runtime, and inlines it with `vite-plugin-singlefile`.
 
 ```bash
 npm install
-npm run dashboard:dev     # live-reload while editing (http://localhost:5173/cybergate-dashboard.html)
+npm run dashboard:dev     # live-reload while editing; also serves data/ so the workbook loads
 npm run dashboard:build   # → dashboard/build/cybergate-dashboard.html
+npm run dashboard:serve   # open the built page with the repo's workbook loaded automatically
 ```
 
-To use other data, replace `data/cybergate-mock-data.xlsx`, keeping the same sheet and column names, then run `npm run dashboard:build`.
+To use other data, replace `data/cybergate-mock-data.xlsx` with a workbook that has the same sheet and column names. You don't need to rebuild.
 
 ## Pages
 
