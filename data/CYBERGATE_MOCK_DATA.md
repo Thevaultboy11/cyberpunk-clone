@@ -1,8 +1,8 @@
 # CyberGate mock data (300 employees)
 
-`cybergate-mock-data.xlsx` is fictional data for the CyberGate manager dashboard. It is separate from `mock-data.xlsx`, which the app still uses and which is unchanged.
+`cybergate-mock-data.xlsx` is fictional data for the CyberGate manager dashboard. The dashboard reads this file at startup (see the main README).
 
-Regenerate it with `python3 scripts/generate_cybergate_mock.py` (needs `openpyxl`). The seed is fixed, so each run produces the same data.
+Regenerate it with `npm run data` (runs `python3 scripts/generate_cybergate_mock.py`; needs `openpyxl`). The seed is fixed, so each run produces the same data.
 
 All people, emails (`@acme-corp.example`) and the client "Acme Corp" are made up. "Today" for the data is 2026-10-20, so past training sessions are finished, current ones are in progress and future ones haven't started.
 

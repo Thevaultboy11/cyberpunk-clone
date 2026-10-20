@@ -1,6 +1,5 @@
-// Turns read-excel-file output ([{ sheet, data: [[...], ...] }]) into a compact,
-// JSON-safe shape the table can use directly. Shared by the build-time Vite
-// plugin (Node) and the in-browser file loader so both paths behave the same.
+// Turns the reader's output ([{ sheet, data: [[...], ...] }], see xlsx.js) into a compact,
+// JSON-safe shape: the first non-empty row is the header, empty rows are dropped.
 //
 // Output: [{ name, columns: string[], types: ('number'|'date'|'boolean'|'text')[], rows: any[][] }]
 // Dates become ISO strings so the result survives JSON serialization.

@@ -6,7 +6,7 @@ Run    : python3 scripts/generate_cybergate_mock.py
 Needs  : openpyxl  (pip install openpyxl)
 
 Every person, email and company here is made up. The random seed is fixed, so running the
-script again gives exactly the same workbook. This file does not touch data/mock-data.xlsx.
+script again gives exactly the same workbook.
 """
 import datetime as dt
 import math

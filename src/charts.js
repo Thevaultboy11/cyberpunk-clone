@@ -116,7 +116,7 @@ export function radar(axes, series, { max = 5, width = 600, height = 440 } = {})
 // Line chart. series: [{ name, cls, values: (number|null)[] }], labels: string[]
 export function lineChart(labels, series, { yMin = 1, yMax = 5, height = 200, width = 560 } = {}) {
   const padL = 32
-  const padR = 12
+  const padR = 28
   const padT = 12
   const padB = 28
   const n = labels.length

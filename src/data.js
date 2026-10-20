@@ -1,17 +1,17 @@
 // Where the dashboard gets its data: the Excel workbook in the repo (data/cybergate-mock-data.xlsx).
 // Nothing is ever requested from the internet. The order is:
-//   1. read the workbook from the repo folder (works when the page is served from the repo, e.g. npm run dashboard:serve)
+//   1. read the workbook from the repo folder (works when the page is served from the repo: npm run serve / npm run dev)
 //   2. the copy of the workbook last opened in this browser (kept in IndexedDB on this computer)
 //   3. ask the manager to choose or drop the file (needed when the page is opened by double-click,
 //      because browsers do not let a file:// page read other files on disk by itself)
 import { readXlsx } from './xlsx.js'
-import { normalizeWorkbook } from '../../src/lib/normalize.js'
+import { normalizeWorkbook } from './normalize.js'
 
 export const DATA_FILE = 'cybergate-mock-data.xlsx'
 export const DATA_PATH = `data/${DATA_FILE}`
 
-// Relative to the built page (dashboard/build/), the dev server (dashboard/), or a copy placed next to the xlsx.
-const CANDIDATES = [`../../data/${DATA_FILE}`, `../data/${DATA_FILE}`, `./${DATA_FILE}`, `/data/${DATA_FILE}`]
+// Relative to the built page (build/), the dev server (repo root), or a copy of the page placed next to the xlsx.
+const CANDIDATES = [`../data/${DATA_FILE}`, `./data/${DATA_FILE}`, `./${DATA_FILE}`, `/data/${DATA_FILE}`]
 
 export const REQUIRED = {
   Employees: ['User Name', 'User Email', 'Job Title', 'Section', 'Department', 'Division', 'Line Manager', 'Self-Assessment', 'Validation Interview', 'Validation Interview Report'],

@@ -1,37 +1,25 @@
 {
   "name": "cyberpunk-clone",
-  "version": "1.0.0",
-  "description": "Offline, single-file React table viewer for Excel data",
+  "version": "2.0.0",
+  "description": "CyberGate manager dashboard: one offline HTML file that reads the assessment workbook data/cybergate-mock-data.xlsx",
+  "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "mock": "node scripts/generate-mock.mjs",
-    "dashboard:dev": "vite -c vite.dashboard.config.js",
-    "dashboard:build": "vite build -c vite.dashboard.config.js",
-    "dashboard:serve": "node scripts/serve-dashboard.mjs"
+    "build": "vite build && node scripts/screenshots.mjs",
+    "build:html": "vite build",
+    "serve": "node scripts/serve.mjs",
+    "screenshots": "node scripts/screenshots.mjs",
+    "data": "python3 scripts/generate_cybergate_mock.py"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Thevaultboy11/cyberpunk-clone.git"
   },
-  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Thevaultboy11/cyberpunk-clone/issues"
-  },
-  "homepage": "https://github.com/Thevaultboy11/cyberpunk-clone#readme",
   "devDependencies": {
-    "@vitejs/plugin-react": "^6.1.2",
+    "playwright": "^1.56.0",
     "vite": "^8.3.4",
-    "vite-plugin-singlefile": "^2.3.4",
-    "write-excel-file": "^4.1.1"
-  },
-  "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "read-excel-file": "^9.3.12"
-  },
-  "private": true,
-  "type": "module"
+    "vite-plugin-singlefile": "^2.3.4"
+  }
 }

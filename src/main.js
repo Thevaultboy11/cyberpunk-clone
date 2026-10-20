@@ -1,4 +1,4 @@
-// Entry point. Vite bundles these files into one classic <script> inside cybergate-dashboard.html.
+// Entry point. Vite bundles these files into one classic <script> inside build/cybergate-dashboard.html.
 // The data is NOT inside the page: it is read at startup from the Excel workbook in the repo,
 // data/cybergate-mock-data.xlsx (see data.js). The only thing the page ever reads is that file.
 import './styles.css'
@@ -74,7 +74,7 @@ function dataScreen({ error = '', remembered = null } = {}) {
       <p class="note" style="margin-top:16px">Find it in the repo at <span class="mono">${esc(DATA_PATH)}</span>.</p>
     </div>
     <div class="grid g-2" style="margin-top:16px">
-      <div class="card subtle"><h3>Load it automatically</h3><p class="card-sub" style="margin-top:6px">From the repository folder, run <span class="mono">npm run dashboard:serve</span> and open the address it prints. The page then reads <span class="mono">${esc(DATA_PATH)}</span> by itself every time it opens. That runs on your own computer, so it works in airplane mode too.</p></div>
+      <div class="card subtle"><h3>Load it automatically</h3><p class="card-sub" style="margin-top:6px">From the repository folder, run <span class="mono">npm run serve</span> and open the address it prints. The page then reads <span class="mono">${esc(DATA_PATH)}</span> by itself every time it opens. That runs on your own computer, so it works in airplane mode too.</p></div>
       <div class="card subtle"><h3>Remembered on this computer</h3><p class="card-sub" style="margin-top:6px">After you choose the file once, this browser keeps a copy, so double-clicking the page next time opens the dashboard straight away. Use the data button in the header to load a newer version.</p>
         ${remembered ? `<p class="note">Last loaded: <b>${esc(remembered.name)}</b>, ${esc(new Date(remembered.loadedAt).toLocaleString('en-GB'))}.</p>` : ''}</div>
     </div>
