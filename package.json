@@ -6,7 +6,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "mock": "node scripts/generate-mock.mjs"
+    "mock": "node scripts/generate-mock.mjs",
+    "dashboard:dev": "vite -c vite.dashboard.config.js",
+    "dashboard:build": "vite build -c vite.dashboard.config.js",
+    "dashboard:serve": "node scripts/serve-dashboard.mjs"
   },
   "repository": {
     "type": "git",
