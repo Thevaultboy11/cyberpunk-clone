@@ -1,0 +1,34 @@
+{
+  "name": "cyberpunk-clone",
+  "version": "1.0.0",
+  "description": "Offline, single-file React table viewer for Excel data",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "mock": "node scripts/generate-mock.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thevaultboy11/cyberpunk-clone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thevaultboy11/cyberpunk-clone/issues"
+  },
+  "homepage": "https://github.com/Thevaultboy11/cyberpunk-clone#readme",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.2",
+    "vite": "^8.3.4",
+    "vite-plugin-singlefile": "^2.3.4",
+    "write-excel-file": "^4.1.1"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "read-excel-file": "^9.3.12"
+  },
+  "private": true,
+  "type": "module"
+}
