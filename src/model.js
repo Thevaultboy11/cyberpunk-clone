@@ -1,4 +1,4 @@
-// Builds the dashboard model from the 8 sheets of data/cybergate-mock-data.xlsx.
+// Builds the dashboard model from the 8 sheets of data/skills-data.xlsx.
 // Everything is joined on the employee email. No network, no libraries: plain data in, plain objects out.
 //
 // Definitions used across the app (also shown in the UI's "How it's calculated" notes):
@@ -11,7 +11,7 @@
 
 export const PRIORITY_WEIGHT = { High: 3, Medium: 2, Low: 1 }
 export const EXPERT_LEVEL = 4
-export const LEAD_FW = 'CyberGate Leadership Framework'
+export const LEAD_FW = 'Club Leadership Framework'
 
 export const BANDS = [
   { id: 'ready', label: 'Ready now', short: 'Ready now' },

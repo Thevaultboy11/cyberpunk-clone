@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generate fictional CyberGate manager-dashboard data: 300 employees across 8 tables.
+"""Generate fictional skills-dashboard data: 300 employees across 8 tables.
 
-Output : data/cybergate-mock-data.xlsx  (8 sheets, original column names, in original order)
-Run    : python3 scripts/generate_cybergate_mock.py
+Output : data/skills-data.xlsx  (8 sheets, original column names, in original order)
+Run    : python3 scripts/generate_mock_data.py
 Needs  : openpyxl  (pip install openpyxl)
 
 Every person, email and company here is made up. The random seed is fixed, so running the
@@ -22,7 +22,7 @@ SEED = 2026
 rng = random.Random(SEED)
 TODAY = dt.date(2026, 10, 20)
 DOMAIN = "acme-corp.example"
-OUT = Path(__file__).resolve().parent.parent / "data" / "cybergate-mock-data.xlsx"
+OUT = Path(__file__).resolve().parent.parent / "data" / "skills-data.xlsx"
 
 
 def rnd(x):
@@ -60,8 +60,8 @@ def fmt_hours(h):
 # --------------------------------------------------------------------------------------
 # Competency framework (Tables 3 and 4)
 # --------------------------------------------------------------------------------------
-LEAD_FW = "CyberGate Leadership Framework"
-TECH_FW = "CyberGate Technical Framework"
+LEAD_FW = "Club Leadership Framework"
+TECH_FW = "Club Technical Framework"
 
 CATEGORIES = {
     "COM": (LEAD_FW, "Communication & Influence"),

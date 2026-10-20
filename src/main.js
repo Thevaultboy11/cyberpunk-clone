@@ -1,6 +1,6 @@
-// Entry point. Vite bundles these files into one classic <script> inside build/cybergate-dashboard.html.
+// Entry point. Vite bundles these files into one classic <script> inside build/skills-dashboard.html.
 // The data is NOT inside the page: it is read at startup from the Excel workbook in the repo,
-// data/cybergate-mock-data.xlsx (see data.js). The only thing the page ever reads is that file.
+// data/skills-data.xlsx (see data.js). The only thing the page ever reads is that file.
 import './styles.css'
 import { buildModel } from './model.js'
 import { renderDashboard } from './pages/dashboard.js'
@@ -10,7 +10,7 @@ import { icon } from './ui.js'
 import { esc, num } from './util.js'
 import { DATA_FILE, DATA_PATH, parseWorkbook, fetchFromRepo, loadRemembered, remember, forget, readPickedFile } from './data.js'
 
-const THEME_KEY = 'cybergate-theme'
+const THEME_KEY = 'skills-dashboard-theme'
 
 function storedTheme() {
   try { return localStorage.getItem(THEME_KEY) } catch { return null }
@@ -45,7 +45,7 @@ function parseHash() {
 function shell() {
   document.body.innerHTML = `
     <header class="header"><div class="container">
-      <a class="brand" href="#/"><span class="brand-mark">${icon.logo}</span>cybergate<span class="brand-sub">Manager</span></a>
+      <a class="brand" href="#/"><span class="brand-mark">${icon.logo}</span>cyberclub<span class="brand-sub">Manager</span></a>
       <nav class="nav"><a href="#/" data-nav="dashboard">Dashboard</a><a href="#/teams" data-nav="teams">Teams</a></nav>
       <div class="header-right">
         <button class="status-pill data-pill" id="data-pill" type="button" title="Load another workbook"><span class="status-dot"></span><span id="data-pill-text">No data loaded</span></button>
@@ -55,7 +55,7 @@ function shell() {
     <main id="app"></main>
     <input type="file" id="file-input" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden />
     <div class="drop-overlay" id="drop-overlay"><div>Drop the .xlsx workbook to load it</div></div>
-    <footer class="footer"><div class="container"><span>CyberGate manager dashboard · pilot · works offline</span><span id="footer-source">Data: ${esc(DATA_PATH)}</span></div></footer>`
+    <footer class="footer"><div class="container"><span>Skills dashboard · NYUAD Cybersecurity Club · works offline</span><span id="footer-source">Data: ${esc(DATA_PATH)}</span></div></footer>`
 }
 
 function dataScreen({ error = '', remembered = null } = {}) {
@@ -205,7 +205,7 @@ function start() {
       view = { html: renderDashboard(model), title: 'Dashboard' }
     }
     app.innerHTML = view.html
-    document.title = `${view.title} · CyberGate`
+    document.title = `${view.title} · Cyber Club`
     document.querySelectorAll('[data-nav]').forEach((a) => a.classList.toggle('active', a.dataset.nav === nav))
     window.scrollTo(0, 0)
     if (view.mount) {

@@ -127,7 +127,7 @@ export function renderDashboard(model) {
     <section class="hero container">
       <div class="eyebrow">Manager dashboard · Acme Corp</div>
       <h1>Who is ready, what is missing,<br/>and where to act next.</h1>
-      <p class="sub">${num(s.count)} people across ${model.divisions.size} divisions and ${departments.length} departments. Every number below is calculated from the CyberGate assessment workbook bundled in this file. Nothing leaves this computer.</p>
+      <p class="sub">${num(s.count)} people across ${model.divisions.size} divisions and ${departments.length} departments. Every number below is calculated from the skills assessment workbook bundled in this file. Nothing leaves this computer.</p>
       <div class="actions"><a class="btn btn-primary" href="${teamsHref()}">Open teams ${icon.arrow}</a><a class="btn btn-secondary" href="${teamsHref({ band: 'ready' })}">Ready for promotion</a></div>
     </section>
 

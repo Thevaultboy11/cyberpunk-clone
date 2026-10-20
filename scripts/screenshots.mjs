@@ -2,7 +2,7 @@
 //
 // Opens the freshly built page in a headless browser and saves screenshots to docs/screenshots/.
 // While doing so it acts as a network audit: every request is checked, anything that is not the page
-// itself or data/cybergate-mock-data.xlsx on this computer is blocked and reported, and the run fails.
+// itself or data/skills-data.xlsx on this computer is blocked and reported, and the run fails.
 //
 // Browser: Playwright's Chromium if installed (npx playwright install chromium), otherwise the Chrome or
 // Edge already on the computer, otherwise the path in CHROME_PATH. If none is found the build still
@@ -48,7 +48,7 @@ async function main() {
   }
   const { browser, name, error } = await launch()
   if (!browser) {
-    console.warn(`\n  screenshots skipped: ${error}.\n  The build itself is fine: build/cybergate-dashboard.html is ready.\n`)
+    console.warn(`\n  screenshots skipped: ${error}.\n  The build itself is fine: build/skills-dashboard.html is ready.\n`)
     return
   }
   fs.mkdirSync(OUT, { recursive: true })
@@ -137,7 +137,7 @@ async function main() {
     console.error(`  NETWORK AUDIT FAILED, the page tried to reach:\n    ${[...new Set(external)].join('\n    ')}`)
     process.exitCode = 1
   } else {
-    console.log('  network audit: no request left this computer (only the page and data/cybergate-mock-data.xlsx were loaded)\n')
+    console.log('  network audit: no request left this computer (only the page and data/skills-data.xlsx were loaded)\n')
   }
 }
 

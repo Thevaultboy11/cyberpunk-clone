@@ -1,6 +1,6 @@
 // npm run serve
 // Serves this repository on your own computer (127.0.0.1 only), so the dashboard page can read
-// data/cybergate-mock-data.xlsx by itself. No internet needed; nothing is reachable from other machines.
+// data/skills-data.xlsx by itself. No internet needed; nothing is reachable from other machines.
 // Plain Node, no dependencies. Also used by scripts/screenshots.mjs.
 import http from 'node:http'
 import fs from 'node:fs'
@@ -8,7 +8,7 @@ import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-export const PAGE = '/build/cybergate-dashboard.html'
+export const PAGE = '/build/skills-dashboard.html'
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -51,8 +51,8 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   }
   startServer(port)
     .then(() => {
-      console.log(`\n  CyberGate dashboard → http://localhost:${port}${PAGE}`)
-      console.log(`  Reading data from    ${path.join(ROOT, 'data', 'cybergate-mock-data.xlsx')}`)
+      console.log(`\n  Skills dashboard → http://localhost:${port}${PAGE}`)
+      console.log(`  Reading data from    ${path.join(ROOT, 'data', 'skills-data.xlsx')}`)
       console.log('  Press Ctrl+C to stop.\n')
     })
     .catch((err) => {

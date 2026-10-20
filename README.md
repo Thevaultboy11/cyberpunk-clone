@@ -1,10 +1,10 @@
-# CyberGate manager dashboard
+# Skills dashboard
 
-A manager's view of the CyberGate skills assessment: who is ready for promotion, which gaps are most common, who the key people are, and whether employees did their training.
+A project by the **NYUAD Cybersecurity Club**: an offline dashboard that turns a skills-assessment workbook into something a team lead can act on. It shows who is ready for promotion, which skill gaps are most common, who the key people are, and whether people did their training.
 
-**The whole app is one HTML file**, [`build/cybergate-dashboard.html`](build/cybergate-dashboard.html). It reads its data from the Excel workbook [`data/cybergate-mock-data.xlsx`](data/cybergate-mock-data.xlsx) in this repo. It makes no other request: no internet, no CDN, no fonts, no analytics, so it works in airplane mode.
+**The whole app is one HTML file**, [`build/skills-dashboard.html`](build/skills-dashboard.html). It reads its data from the Excel workbook [`data/skills-data.xlsx`](data/skills-data.xlsx) in this repo. It makes no other request: no internet, no CDN, no fonts, no analytics, so it works in airplane mode.
 
-> All people, emails (`@acme-corp.example`) and the client "Acme Corp" in the workbook are fictional.
+> All people, emails (`@acme-corp.example`) and the organisation "Acme Corp" in the workbook are made up for this project.
 
 ![Dashboard](docs/screenshots/01-dashboard.png)
 
@@ -35,9 +35,9 @@ npm install
 npm run serve
 ```
 
-Open the address it prints, **http://localhost:4321/build/cybergate-dashboard.html**. The dashboard loads `data/cybergate-mock-data.xlsx` by itself.
+Open the address it prints, **http://localhost:4321/build/skills-dashboard.html**. The dashboard loads `data/skills-data.xlsx` by itself.
 
-**Not a developer?** You don't need Node at all: download the repo and double-click `build/cybergate-dashboard.html`. It asks you once for the workbook, which is `data/cybergate-mock-data.xlsx`. See [4.2](#42-double-click-the-html-file-no-installation).
+**Not a developer?** You don't need Node at all: download the repo and double-click `build/skills-dashboard.html`. It asks you once for the workbook, which is `data/skills-data.xlsx`. See [4.2](#42-double-click-the-html-file-no-installation).
 
 ---
 
@@ -68,30 +68,30 @@ The app itself has **no runtime dependencies**. These three packages are only us
 
 ## 4. Run the app
 
-There are three ways to open it. All of them read the same `data/cybergate-mock-data.xlsx`.
+There are three ways to open it. All of them read the same `data/skills-data.xlsx`.
 
 ### 4.1 `npm run serve` (recommended)
 
 ```bash
 npm run serve
-# → CyberGate dashboard → http://localhost:4321/build/cybergate-dashboard.html
+# → Skills dashboard → http://localhost:4321/build/skills-dashboard.html
 ```
 
-This starts a tiny local server: plain Node, no dependencies, listening on `127.0.0.1` only, so other machines can't reach it. It serves this repo, and the page reads `data/cybergate-mock-data.xlsx` automatically every time you open or refresh it. Edit or replace the workbook, refresh the browser, and you see the new numbers without rebuilding.
+This starts a tiny local server: plain Node, no dependencies, listening on `127.0.0.1` only, so other machines can't reach it. It serves this repo, and the page reads `data/skills-data.xlsx` automatically every time you open or refresh it. Edit or replace the workbook, refresh the browser, and you see the new numbers without rebuilding.
 
 - Different port: `PORT=8080 npm run serve`
 - Stop it with `Ctrl+C`.
 
 ### 4.2 Double-click the HTML file (no installation)
 
-Open `build/cybergate-dashboard.html` directly from your file explorer.
+Open `build/skills-dashboard.html` directly from your file explorer.
 
 Browsers don't let a page opened from disk read other files on its own. So the first time you see this screen:
 
 ![Load the workbook](docs/screenshots/10-load-workbook.png)
 
 1. Click **Choose the workbook**, or drag the file onto the page.
-2. Pick `data/cybergate-mock-data.xlsx` from the repo folder.
+2. Pick `data/skills-data.xlsx` from the repo folder.
 3. The dashboard opens. The browser keeps a copy of the workbook on this computer (in IndexedDB), so next time you double-click the file it opens straight away.
 
 The file is read on your computer only. It is never uploaded anywhere.
@@ -100,7 +100,7 @@ The file is read on your computer only. It is never uploaded anywhere.
 
 ```bash
 npm run dev
-# → http://localhost:5173/cybergate-dashboard.html (opens automatically)
+# → http://localhost:5173/skills-dashboard.html (opens automatically)
 ```
 
 This is a live-reload development server: save a file in `src/` and the page updates. It also serves `data/`, so the workbook loads automatically.
@@ -232,12 +232,12 @@ npm run build
 
 This does two things:
 
-1. **Builds `build/cybergate-dashboard.html`.** Vite bundles `src/` into a single HTML file with all CSS and JavaScript inlined, as **one classic `<script>`**: no `type="module"`, no `import` at runtime, and no data inside.
+1. **Builds `build/skills-dashboard.html`.** Vite bundles `src/` into a single HTML file with all CSS and JavaScript inlined, as **one classic `<script>`**: no `type="module"`, no `import` at runtime, and no data inside.
 2. **Takes fresh screenshots** into `docs/screenshots/`. It opens the new file in a headless browser, captures all three pages in light and dark (19 images), and **audits the network**: any request that would leave the computer is blocked and fails the build. Expected output:
 
    ```
    screenshots: 19 images in docs/screenshots/ (browser: Playwright Chromium)
-   network audit: no request left this computer (only the page and data/cybergate-mock-data.xlsx were loaded)
+   network audit: no request left this computer (only the page and data/skills-data.xlsx were loaded)
    ```
 
 **Screenshots need a browser.** The script uses the first of these it finds:
@@ -258,13 +258,13 @@ If none is found, the HTML file is still built and only the screenshots are skip
 | `npm run dev` | Development server (section 4.3) |
 | `npm run data` | Regenerates the mock workbook (section 7) |
 
-`build/cybergate-dashboard.html` is committed to the repo, so people who only want to use the app can download it without building anything. Rebuild and commit it whenever you change something in `src/`.
+`build/skills-dashboard.html` is committed to the repo, so people who only want to use the app can download it without building anything. Rebuild and commit it whenever you change something in `src/`.
 
 ---
 
 ## 7. The data: the Excel workbook
 
-`data/cybergate-mock-data.xlsx` has the 8 tables of the CyberGate assessment as sheets, with these exact column names. The app reads them by name.
+`data/skills-data.xlsx` has the 8 tables of the skills assessment as sheets, with these exact column names. The app reads them by name.
 
 | Sheet | Rows | One row is | Used for |
 | --- | --- | --- | --- |
@@ -277,15 +277,15 @@ If none is found, the HTML file is still built and only the screenshots are skip
 | IDP Certifications | 760 | an employee in an IDP cycle: professional + AI certification | Certifications |
 | Learning Plans | 196 | an employee's plan: 5 segments + department need | Learning plan |
 
-More detail (scales, profiles, gaps left in on purpose) is in [`data/CYBERGATE_MOCK_DATA.md`](data/CYBERGATE_MOCK_DATA.md).
+More detail (scales, profiles, gaps left in on purpose) is in [`data/DATA_NOTES.md`](data/DATA_NOTES.md).
 
-**To use your own data**, replace `data/cybergate-mock-data.xlsx` with a workbook that has the same sheet and column names. Extra columns are fine. You don't need to rebuild: refresh the page (`npm run serve`) or load the file with the data button.
+**To use your own data**, replace `data/skills-data.xlsx` with a workbook that has the same sheet and column names. Extra columns are fine. You don't need to rebuild: refresh the page (`npm run serve`) or load the file with the data button.
 
 **To regenerate the mock data** (fixed seed, so it produces the same workbook every time):
 
 ```bash
 pip install openpyxl
-npm run data          # = python3 scripts/generate_cybergate_mock.py
+npm run data          # = python3 scripts/generate_mock_data.py
 ```
 
 ---
@@ -294,7 +294,7 @@ npm run data          # = python3 scripts/generate_cybergate_mock.py
 
 The page can't reach the internet, by design:
 
-- **One request only.** The page's only network-capable call is a `fetch` of `cybergate-mock-data.xlsx`, by relative path, from the same folder or server as the page itself. When opened by double-click it doesn't even do that: you hand it the file.
+- **One request only.** The page's only network-capable call is a `fetch` of `skills-data.xlsx`, by relative path, from the same folder or server as the page itself. When opened by double-click it doesn't even do that: you hand it the file.
 - **Content-Security-Policy.** Built into the page: `default-src 'none'; … connect-src 'self'`. Even if code tried to load anything from another address (scripts, fonts, images, API calls), the browser would block it.
 - **Nothing external is referenced.**
   - No web fonts: it uses the system font, or Geist if installed.
@@ -336,10 +336,10 @@ All metrics live in [`src/model.js`](src/model.js).
 ```
 cyberpunk-clone/
 ├── build/
-│   └── cybergate-dashboard.html   ← the app: one file, open it or serve it
+│   └── skills-dashboard.html   ← the app: one file, open it or serve it
 ├── data/
-│   ├── cybergate-mock-data.xlsx   ← the data the app reads (8 sheets)
-│   └── CYBERGATE_MOCK_DATA.md     ← notes on the data
+│   ├── skills-data.xlsx   ← the data the app reads (8 sheets)
+│   └── DATA_NOTES.md     ← notes on the data
 ├── docs/screenshots/              ← made by `npm run build`
 ├── src/                           ← app source (plain JavaScript, no framework)
 │   ├── main.js                    ← start-up, header, routing, theme, loading the workbook
@@ -355,8 +355,8 @@ cyberpunk-clone/
 ├── scripts/
 │   ├── serve.mjs                  ← `npm run serve`: local server, 127.0.0.1 only
 │   ├── screenshots.mjs            ← screenshots + network audit, runs after the build
-│   └── generate_cybergate_mock.py ← `npm run data`: regenerates the workbook
-├── cybergate-dashboard.html       ← page template Vite builds from
+│   └── generate_mock_data.py ← `npm run data`: regenerates the workbook
+├── skills-dashboard.html       ← page template Vite builds from
 ├── vite.config.js                 ← single-file build, offline CSP, classic script
 └── package.json
 ```
@@ -367,8 +367,8 @@ cyberpunk-clone/
 
 | Problem | Fix |
 | --- | --- |
-| Double-clicked the file and it asks for the workbook | Expected the first time (section 4.2). Choose `data/cybergate-mock-data.xlsx`, or use `npm run serve` to load it automatically. |
-| "This workbook doesn't match the CyberGate layout" | The file is missing a sheet or column the app needs. The message lists which. Use `data/cybergate-mock-data.xlsx` or fix the sheet/column names. |
+| Double-clicked the file and it asks for the workbook | Expected the first time (section 4.2). Choose `data/skills-data.xlsx`, or use `npm run serve` to load it automatically. |
+| "This workbook doesn't match the expected layout" | The file is missing a sheet or column the app needs. The message lists which. Use `data/skills-data.xlsx` or fix the sheet/column names. |
 | `npm run serve` says the page is missing | Run `npm run build` (or `npm run build:html`) first. |
 | `Port 4321 is busy` | `PORT=4322 npm run serve` |
 | Screenshots skipped: no browser found | `npx playwright install chromium` once, or `CHROME_PATH=/path/to/chrome npm run build` |

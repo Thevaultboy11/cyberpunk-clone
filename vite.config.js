@@ -1,11 +1,11 @@
-// Build for the CyberGate manager dashboard.
+// Build for the Skills dashboard.
 //
 //   npm run dev     live-reload dev server (serves data/ too, so the workbook loads)
-//   npm run build   → build/cybergate-dashboard.html, then fresh screenshots in docs/screenshots/
-//   npm run serve   serve the repo on this computer so the built page reads data/cybergate-mock-data.xlsx itself
+//   npm run build   → build/skills-dashboard.html, then fresh screenshots in docs/screenshots/
+//   npm run serve   serve the repo on this computer so the built page reads data/skills-data.xlsx itself
 //
 // What ends up in the HTML: all CSS and JS, inlined. The JS is one classic <script> (no type="module", no
-// imports at runtime). The data is NOT built in: at startup the page reads data/cybergate-mock-data.xlsx
+// imports at runtime). The data is NOT built in: at startup the page reads data/skills-data.xlsx
 // (or the copy the manager picked). A Content-Security-Policy allows reading files from the page's own
 // origin only and blocks every other request, so the page cannot reach the internet.
 import fs from 'node:fs'
@@ -49,7 +49,7 @@ function classicScript() {
 export default defineConfig({
   base: './',
   plugins: [viteSingleFile(), offlineCsp(), classicScript()],
-  server: { open: '/cybergate-dashboard.html' },
+  server: { open: '/skills-dashboard.html' },
   build: {
     outDir: 'build',
     emptyOutDir: true,
@@ -58,7 +58,7 @@ export default defineConfig({
     cssCodeSplit: false,
     modulePreload: false,
     rollupOptions: {
-      input: fileURLToPath(new URL('./cybergate-dashboard.html', import.meta.url)),
+      input: fileURLToPath(new URL('./skills-dashboard.html', import.meta.url)),
     },
   },
 })

@@ -1,4 +1,4 @@
-// Where the dashboard gets its data: the Excel workbook in the repo (data/cybergate-mock-data.xlsx).
+// Where the dashboard gets its data: the Excel workbook in the repo (data/skills-data.xlsx).
 // Nothing is ever requested from the internet. The order is:
 //   1. read the workbook from the repo folder (works when the page is served from the repo: npm run serve / npm run dev)
 //   2. the copy of the workbook last opened in this browser (kept in IndexedDB on this computer)
@@ -7,7 +7,7 @@
 import { readXlsx } from './xlsx.js'
 import { normalizeWorkbook } from './normalize.js'
 
-export const DATA_FILE = 'cybergate-mock-data.xlsx'
+export const DATA_FILE = 'skills-data.xlsx'
 export const DATA_PATH = `data/${DATA_FILE}`
 
 // Relative to the built page (build/), the dev server (repo root), or a copy of the page placed next to the xlsx.
@@ -36,9 +36,9 @@ export async function parseWorkbook(arrayBuffer) {
   if (problems.length) {
     const found = Object.keys(REQUIRED).filter((n) => sheets.some((x) => x.name === n))
     const msg = found.length === 0
-      ? `none of the 8 CyberGate sheets (${Object.keys(REQUIRED).join(', ')}) are in this workbook. Sheets found: ${sheets.map((x) => x.name).join(', ') || 'none'}`
+      ? `none of the 8 expected sheets (${Object.keys(REQUIRED).join(', ')}) are in this workbook. Sheets found: ${sheets.map((x) => x.name).join(', ') || 'none'}`
       : problems.join('; ')
-    const err = new Error(`This workbook doesn't match the CyberGate layout: ${msg}.`)
+    const err = new Error(`This workbook doesn't match the expected layout: ${msg}.`)
     err.problems = problems
     throw err
   }
@@ -65,7 +65,7 @@ export async function fetchFromRepo() {
 }
 
 // 2. The copy remembered in this browser
-const DB = 'cybergate-dashboard'
+const DB = 'skills-dashboard'
 const STORE = 'workbook'
 
 function openDb() {
